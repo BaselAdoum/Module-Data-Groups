@@ -1,3 +1,4 @@
+/* Reset some default browser styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,33 +6,37 @@
   font-family: Arial, sans-serif;
 }
 
+/* Page background and spacing */
 body {
   background-color: #f4f4f4;
   padding: 40px;
 }
 
+/* Main container for the todo app */
 .todo-container {
   max-width: 500px;
-  margin: 0 auto;
+  margin: 0 auto; /* Center the container */
   background: white;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Main heading */
 h1 {
   text-align: center;
   margin-bottom: 20px;
 }
 
+/* Input area for adding new tasks */
 .todo-input {
   display: flex;
-  gap: 10px;
+  gap: 10px; /* Space between input and button */
   margin-bottom: 20px;
 }
 
 .todo-input input {
-  flex: 1;
+  flex: 1; /* Take up remaining space */
   padding: 10px;
   font-size: 16px;
   border-radius: 6px;
@@ -41,7 +46,7 @@ h1 {
 .todo-input button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #4CAF50;
+  background-color: #4CAF50; /* Green color */
   color: white;
   border: none;
   border-radius: 6px;
@@ -49,14 +54,37 @@ h1 {
 }
 
 .todo-input button:hover {
-  background-color: #45a049;
+  background-color: #45a049; /* Darker green on hover */
 }
 
+/* NEW: Container for the delete completed tasks button */
+.todo-actions {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* NEW: Style for the delete completed tasks button */
+#delete-completed-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #ff4444; /* Red color */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#delete-completed-btn:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+/* List of todo items */
 .todo-list {
-  list-style-type: none;
+  list-style-type: none; /* Remove bullet points */
   padding-left: 0;
 }
 
+/* Individual todo item */
 .todo-item {
   display: flex;
   align-items: center;
@@ -68,19 +96,22 @@ h1 {
   background-color: #fff;
 }
 
+/* The task description text */
 .description {
-  flex: 1;
+  flex: 1; /* Take up available space */
   margin-right: 10px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; /* Show ... if text is too long */
 }
 
+/* Container for action buttons */
 .actions {
   display: flex;
-  gap: 10px;
+  gap: 10px; /* Space between buttons */
 }
 
+/* Style for both complete and delete buttons */
 .actions button {
   background: none;
   border: none;
@@ -93,15 +124,18 @@ h1 {
   height: 32px;
 }
 
+/* Complete button icon (checkmark) - green */
 .complete-btn i {
   color: green;
 }
 
+/* Delete button icon (trash) - red */
 .delete-btn i {
   color: red;
 }
 
+/* Style for completed tasks */
 .todo-item.completed .description {
-  text-decoration: line-through;
-  color: gray;
+  text-decoration: line-through; /* Cross out text */
+  color: gray; /* Make text gray */
 }

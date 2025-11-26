@@ -5,32 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ToDo List</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Font Awesome for icons (checkmark and trash) -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
+  <!-- This is an ES Module - the modern way to import JavaScript files -->
   <script type="module" src="script.mjs"></script>
 </head>
 <body>
   <div class="todo-container">
     <h1>My ToDo List</h1>
 
+    <!-- Input section for adding new tasks -->
     <div class="todo-input">
       <input type="text" id="new-task-input" placeholder="Enter a new task..." />
       <button id="add-task-btn">Add</button>
     </div>
 
+    <!-- NEW: Button to delete all completed tasks at once -->
+    <div class="todo-actions">
+      <button id="delete-completed-btn">Delete Completed Tasks</button>
+    </div>
+
+    <!-- This is where all the todo items will be displayed -->
     <ul id="todo-list" class="todo-list">      
     </ul>
 
     <!-- 
-      This is a template for the To-do list item. 
-      It can simplify the creation of list item node in JS script.
+      TEMPLATE: This is a blueprint for creating new todo items
+      We don't see this on the page, but JavaScript will use it to create new items
     -->
     <template id="todo-item-template">
-      <li class="todo-item"> <!-- include class "completed" if the task completed state is true -->
+      <li class="todo-item"> 
+        <!-- The todo item text will go here -->
         <span class="description">Task description</span>
+        <!-- Buttons for actions (complete and delete) -->
         <div class="actions">
-          <button class="complete-btn"><span class="fa-solid fa-check" aria-hidden="true"></span></button>
-          <button class="delete-btn"><span class="fa-solid fa-trash" aria-hidden="true"></span></button>
+          <button class="complete-btn">
+            <span class="fa-solid fa-check" aria-hidden="true"></span>
+          </button>
+          <button class="delete-btn">
+            <span class="fa-solid fa-trash" aria-hidden="true"></span>
+          </button>
         </div>
       </li>
     </template>

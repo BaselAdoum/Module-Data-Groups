@@ -1,74 +1,105 @@
-// Store everything imported from './todos.mjs' module as properties of an object named Todos 
+/*
+  This file contains the UI LOGIC for our ToDo app.
+  It handles everything related to the webpage - buttons, display, user interaction.
+*/
+
+// Import all functions from the todos.mjs file
+// The * as Todos means "import everything and call it Todos"
 import * as Todos from "./todos.mjs";
 
-// To store the todo tasks
+// This array will store all our todo tasks
 const todos = [];
 
-// Set up tasks to be performed once on page load
+// Get reference to the todo list element once (for better performance)
+const todoListEl = document.getElementById("todo-list");
+
+// Get the template for todo items once
+const todoListItemTemplate =
+  document.getElementById("todo-item-template").content.firstElementChild;
+
+// Set up everything when the page loads
 window.addEventListener("load", () => {
+  // Connect the "Add" button to the addNewTodo function
   document.getElementById("add-task-btn").addEventListener("click", addNewTodo);
 
-  // Populate sample data
-  Todos.addTask(todos, "Wash the dishes", false); 
+  // NEW: Connect the "Delete Completed Tasks" button
+  document
+    .getElementById("delete-completed-btn")
+    .addEventListener("click", deleteCompletedTodos);
+
+  // Add some sample tasks to start with
+  Todos.addTask(todos, "Wash the dishes", false);
   Todos.addTask(todos, "Do the shopping", true);
 
+  // Display the tasks on the page
   render();
 });
 
-
-// A callback that reads the task description from an input field and 
-// append a new task to the todo list.
+// Function to handle adding a new todo
 function addNewTodo() {
+  // Get the input field where user types the task
   const taskInput = document.getElementById("new-task-input");
+  // Get the text and remove extra spaces
   const task = taskInput.value.trim();
+
+  // Only add if the task is not empty
   if (task) {
+    // Use our business logic function to add the task
     Todos.addTask(todos, task, false);
+    // Update the display
     render();
   }
 
+  // Clear the input field for the next task
   taskInput.value = "";
 }
 
-// Note:
-// - Store the reference to the <ul> element with id "todo-list" here
-//   to avoid querying the DOM repeatedly inside render().
-// - This variable is declared here to be close to the only function that uses it.
-const todoListEl = document.getElementById("todo-list");
+// NEW FUNCTION: Handle deleting all completed tasks
+function deleteCompletedTodos() {
+  // Use our business logic function to delete completed tasks
+  Todos.deleteCompleted(todos);
+  // Update the display
+  render();
+}
 
-// Render the whole todo list
+// Display all todos on the page
 function render() {
+  // Clear the current list
   todoListEl.innerHTML = "";
 
+  // For each todo item, create a list element and add it to the page
   todos.forEach((todo, index) => {
     const todoListItem = createListItem(todo, index);
     todoListEl.append(todoListItem);
   });
 }
 
-
-// Note:
-// - First child of #todo-item-template is a <li> element.
-//   We will create each ToDo list item as a clone of this node.
-// - This variable is declared here to be close to the only function that uses it.
-const todoListItemTemplate = 
-  document.getElementById("todo-item-template").content.firstElementChild;
-
-// Create a <li> element for the given todo task
+// Create one list item for a todo task
 function createListItem(todo, index) {
-  const li = todoListItemTemplate.cloneNode(true); // true => Do a deep copy of the node
+  // Make a copy of the template
+  const li = todoListItemTemplate.cloneNode(true);
 
+  // Set the task description text
   li.querySelector(".description").textContent = todo.task;
+
+  // If the task is completed, add the "completed" CSS class
   if (todo.completed) {
     li.classList.add("completed");
   }
 
-  li.querySelector('.complete-btn').addEventListener("click", () => {
+  // Add click event to the complete button
+  li.querySelector(".complete-btn").addEventListener("click", () => {
+    // Toggle the completed status using our business logic
     Todos.toggleCompletedOnTask(todos, index);
+    // Update the display
     render();
   });
-    
-  li.querySelector('.delete-btn').addEventListener("click", () => {
+
+  // Add click event to the delete button
+  li.querySelector(".delete-btn").addEventListener("click", () => {
+    // Delete this specific task using our business logic
     Todos.deleteTask(todos, index);
+    // Update the display
     render();
   });
 
